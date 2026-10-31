@@ -1,60 +1,370 @@
-/**
- * SISTEMA DE CÁLCULO REAJUSTADO:
- * - Taxa Base Fixa: € 50,00
- * - Preço por Km (Ida e Volta): € 0,25 / km
- * - Preço por Kg: € 0,25 / kg
- * Resultado: València -> Madrid (600 kg) = € 550,00
- */
-function calculateQuote(event) {
-    if (event) event.preventDefault();
-
-    const origin = document.getElementById('origin').value.trim();
-    const destination = document.getElementById('destination').value.trim();
-    const weight = parseFloat(document.getElementById('weight').value) || 0;
-
-    // Distância de ida estimada a partir de València
-    let distanciaIdaKm = 40; 
-
-    const destLower = destination.toLowerCase();
-    const origLower = origin.toLowerCase();
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIME IS EURO - Envíos Rápidos & Transporte Express</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     
-    if (destLower.includes('madrid') || origLower.includes('madrid')) {
-        distanciaIdaKm = 350;
-    } else if (destLower.includes('castellon') || destLower.includes('castellón')) {
-        distanciaIdaKm = 75;
-    } else if (destLower.includes('barcelona')) {
-        distanciaIdaKm = 350;
-    } else if (destLower.includes('alicante')) {
-        distanciaIdaKm = 170;
-    } else if (destLower.includes('valencia') || destLower.includes('valència')) {
-        distanciaIdaKm = 15;
-    }
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#0A192F',
+                            blue: '#0B3C5D',
+                            lightBlue: '#1D70B8',
+                            gold: '#D4AF37',
+                            goldHover: '#B59226',
+                            accent: '#3282B8',
+                            cardBg: '#0F2B48'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        body: ['Open Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFE57F 0%, #D4AF37 50%, #AA7C11 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-bg-gradient {
+            background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #B59226 100%);
+        }
+        .hero-pattern {
+            background-color: #0A192F;
+            background-image: radial-gradient(circle at 50% 50%, rgba(29, 112, 184, 0.25) 0%, rgba(10, 25, 47, 0.95) 70%), 
+                              url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%231d70b8" fill-opacity="0.08"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></g></svg>');
+        }
+        .glow-gold {
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+        }
+        .wing-anim {
+            animation: floatWing 3.5s ease-in-out infinite alternate;
+        }
+        @keyframes floatWing {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-12px) rotate(1.5deg); }
+        }
+    </style>
+</head>
+<body class="bg-brand-navy text-slate-100 font-body selection:bg-brand-gold selection:text-brand-navy overflow-x-hidden">
 
-    // 1. Distância Total (Ida e Volta Automática)
-    const distanciaTotalKm = distanciaIdaKm * 2;
+    <!-- HEADER / NAVIGATION -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-brand-navy/90 backdrop-blur-md border-b border-brand-lightBlue/20 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- LOGO -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="w-12 h-12 rounded-xl gold-bg-gradient flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
+                        <i class="fa-solid font-bold fa-truck-fast text-brand-navy text-xl"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-2xl font-black tracking-wider text-white leading-none">
+                            TIME IS <span class="gold-gradient-text">EURO</span>
+                        </span>
+                        <span class="text-[10px] tracking-widest text-slate-300 uppercase font-semibold mt-1">Transports & Express Courier</span>
+                    </div>
+                </a>
 
-    // 2. Parâmetros da Fórmula Ajustada
-    const TAXA_BASE = 50.00;
-    const PRECO_POR_KM = 0.25; // €0.25 por km no percurso total
-    const PRECO_POR_KG = 0.25; // €0.25 por kg
+                <!-- DESKTOP NAV -->
+                <nav class="hidden md:flex items-center space-x-8 font-semibold text-sm">
+                    <a href="#inicio" data-i18n="nav_home" class="hover:text-brand-gold transition-colors">Inicio</a>
+                    <a href="#servicios" data-i18n="nav_services" class="hover:text-brand-gold transition-colors">Servicios</a>
+                    <a href="#cotizacion" data-i18n="nav_quote" class="hover:text-brand-gold transition-colors">Cotización</a>
+                    <a href="#nosotros" data-i18n="nav_about" class="hover:text-brand-gold transition-colors">Ventajas</a>
+                    <a href="#contacto" data-i18n="nav_contact" class="hover:text-brand-gold transition-colors">Contacto</a>
+                </nav>
 
-    // 3. Cálculo Exato
-    const custoDistancia = distanciaTotalKm * PRECO_POR_KM;
-    const custoPeso = weight * PRECO_POR_KG;
+                <!-- RIGHT CONTROLS: LANG TOGGLE (ES / EN) & WHATSAPP -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <!-- Language Selector Switcher -->
+                    <div class="flex items-center bg-brand-cardBg border border-slate-700 rounded-full p-1 text-xs">
+                        <button onclick="setLanguage('es')" id="btn-es" class="px-3 py-1.5 rounded-full font-bold transition-all bg-brand-gold text-brand-navy shadow-sm">
+                            🇪🇸 ES
+                        </button>
+                        <button onclick="setLanguage('en')" id="btn-en" class="px-3 py-1.5 rounded-full font-bold transition-all text-slate-300 hover:text-white">
+                            🇬🇧 EN
+                        </button>
+                    </div>
 
-    const valorFinal = TAXA_BASE + custoDistancia + custoPeso;
+                    <a href="https://wa.me/34691321485?text=Hola,%20quisiera%20solicitar%20información%20sobre%20un%20envío." target="_blank" rel="noopener noreferrer" 
+                       class="gold-bg-gradient text-brand-navy font-bold px-5 py-2.5 rounded-full hover:shadow-lg hover:scale-105 transition-all flex items-center space-x-2 text-sm shadow-brand-gold/20">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span>+34 691 321 485</span>
+                    </a>
+                </div>
 
-    // Exibir Resultado na Tela
-    const resultDiv = document.getElementById('quoteResult');
-    const priceRange = document.getElementById('priceRange');
-    const quoteDetails = document.getElementById('quoteDetails');
+                <!-- MOBILE MENU BUTTON -->
+                <div class="md:hidden flex items-center space-x-2">
+                    <button onclick="toggleLanguage()" class="bg-brand-cardBg border border-slate-700 px-3 py-1.5 rounded-full text-xs font-bold text-brand-gold flex items-center space-x-1">
+                        <i class="fa-solid fa-globe"></i>
+                        <span id="lang-indicator">ES</span>
+                    </button>
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-slate-300 hover:text-white p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
 
-    priceRange.innerText = `€${valorFinal.toFixed(2)}`;
-    quoteDetails.innerHTML = `
-        <strong>Ruta (Ida y Vuelta):</strong> ${origin} ➔ ${destination} ➔ ${origin} (${distanciaTotalKm} km totales)<br>
-        <strong>Desglose:</strong> Base (€50) + Distancia (€${custoDistancia.toFixed(2)}) + Peso (${weight} kg = €${custoPeso.toFixed(2)})<br>
-        <span class="text-brand-gold">Nota: Peajes y tiempo de espera excedente se cobran a parte.</span>
-    `;
-    
-    resultDiv.classList.remove('hidden');
-}
+        <!-- MOBILE NAV MENU -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-navy border-b border-slate-800 px-4 pt-2 pb-6 space-y-3">
+            <a href="#inicio" onclick="toggleMobileMenu()" data-i18n="nav_home" class="block py-2 text-base font-medium hover:text-brand-gold">Inicio</a>
+            <a href="#servicios" onclick="toggleMobileMenu()" data-i18n="nav_services" class="block py-2 text-base font-medium hover:text-brand-gold">Servicios</a>
+            <a href="#cotizacion" onclick="toggleMobileMenu()" data-i18n="nav_quote" class="block py-2 text-base font-medium hover:text-brand-gold">Cotización</a>
+            <a href="#nosotros" onclick="toggleMobileMenu()" data-i18n="nav_about" class="block py-2 text-base font-medium hover:text-brand-gold">Ventajas</a>
+            <a href="#contacto" onclick="toggleMobileMenu()" data-i18n="nav_contact" class="block py-2 text-base font-medium hover:text-brand-gold">Contacto</a>
+            <div class="pt-4 border-t border-slate-800 flex flex-col space-y-3">
+                <a href="https://wa.me/34691321485" target="_blank" class="gold-bg-gradient text-brand-navy font-bold py-3 rounded-xl text-center flex items-center justify-center space-x-2">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                    <span>WhatsApp: +34 691 321 485</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="inicio" class="hero-pattern pt-32 pb-20 min-h-screen flex items-center relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Text Content -->
+                <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+                    <div class="inline-flex items-center space-x-2 bg-brand-lightBlue/20 border border-brand-lightBlue/40 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold text-brand-gold">
+                        <i class="fa-solid fa-bolt text-brand-gold animate-pulse"></i>
+                        <span data-i18n="hero_badge">ENVÍOS RÁPIDOS A LA VELOCIDAD DE LA LUZ</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-none">
+                        Mandó, Llegó. <br>
+                        <span class="gold-gradient-text">Atención rápida sin complicaciones.</span>
+                    </h1>
+
+                    <p class="text-lg sm:text-xl text-slate-300 max-w-2xl font-light leading-relaxed mx-auto lg:mx-0" data-i18n="hero_sub">
+                        Especialistas en transporte urgente y logística integral con flota de furgonetas <strong class="text-white font-semibold">Ford Transit</strong> equipadas para máxima seguridad y eficiencia puntual.
+                    </p>
+
+                    <!-- Feature Badges -->
+                    <div class="pt-2 grid grid-cols-2 sm:grid-cols-3 gap-4 text-left max-w-lg mx-auto lg:mx-0">
+                        <div class="flex items-center space-x-3 bg-brand-cardBg/80 p-3 rounded-xl border border-slate-700/60">
+                            <i class="fa-solid fa-clock text-brand-gold text-xl"></i>
+                            <div>
+                                <div class="text-xs text-slate-400" data-i18n="feat_time_title">Tiempo Es Gold</div>
+                                <div class="text-sm font-bold text-white" data-i18n="feat_time_val">Entrega Express</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 bg-brand-cardBg/80 p-3 rounded-xl border border-slate-700/60">
+                            <i class="fa-solid fa-shield-halved text-brand-gold text-xl"></i>
+                            <div>
+                                <div class="text-xs text-slate-400" data-i18n="feat_safe_title">Seguridad</div>
+                                <div class="text-sm font-bold text-white" data-i18n="feat_safe_val">Garantizada</div>
+                            </div>
+                        </div>
+                        <div class="col-span-2 sm:col-span-1 flex items-center space-x-3 bg-brand-cardBg/80 p-3 rounded-xl border border-slate-700/60">
+                            <i class="fa-solid fa-language text-brand-gold text-xl"></i>
+                            <div>
+                                <div class="text-xs text-slate-400" data-i18n="feat_lang_title">Atención</div>
+                                <div class="text-sm font-bold text-white">ES / EN</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="#cotizacion" class="w-full sm:w-auto gold-bg-gradient text-brand-navy font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-brand-gold/30 hover:scale-105 transition-all text-center text-lg flex items-center justify-center space-x-3">
+                            <i class="fa-solid fa-calculator"></i>
+                            <span data-i18n="btn_quote">Calcular Presupuesto</span>
+                        </a>
+                        <a href="https://wa.me/34691321485" target="_blank" class="w-full sm:w-auto bg-transparent border-2 border-brand-gold text-brand-gold font-bold px-8 py-4 rounded-xl hover:bg-brand-gold hover:text-brand-navy transition-all text-center text-lg flex items-center justify-center space-x-3">
+                            <i class="fa-brands fa-whatsapp text-xl"></i>
+                            <span data-i18n="btn_whatsapp">Contactar por WhatsApp</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Graphic: Ford Transit with Wings Representation -->
+                <div class="lg:col-span-5 flex justify-center relative">
+                    <div class="relative w-full max-w-md lg:max-w-none">
+                        <!-- Wings Illustration Backdrop Card -->
+                        <div class="wing-anim relative bg-gradient-to-b from-brand-cardBg to-brand-navy p-8 rounded-3xl border border-brand-gold/30 shadow-2xl glow-gold text-center overflow-hidden">
+                            
+                            <!-- Wings SVG / Icon visual backdrop -->
+                            <div class="absolute inset-0 opacity-10 flex items-center justify-center pointer-events-none">
+                                <i class="fa-solid fa-wings text-white text-[250px]"></i>
+                            </div>
+
+                            <div class="relative z-10 space-y-6">
+                                <!-- Vehicle Graphic Header -->
+                                <div class="relative py-4 flex justify-center items-center">
+                                    <!-- Left Wing Icon -->
+                                    <div class="text-brand-gold text-5xl sm:text-7xl opacity-90 transform -scale-x-100 mr-2 drop-shadow">
+                                        <i class="fa-solid fa-feather-pointed"></i>
+                                    </div>
+                                    
+                                    <!-- Ford Transit Box Stylized -->
+                                    <div class="bg-gradient-to-r from-blue-700 to-brand-lightBlue p-6 rounded-2xl shadow-2xl border-2 border-brand-gold/80 transform hover:scale-105 transition-transform duration-300">
+                                        <i class="fa-solid fa-van-shuttle text-white text-6xl sm:text-7xl"></i>
+                                        <div class="mt-2 text-xs font-black text-brand-gold tracking-widest uppercase">FORD TRANSIT EXPRESS</div>
+                                    </div>
+
+                                    <!-- Right Wing Icon -->
+                                    <div class="text-brand-gold text-5xl sm:text-7xl opacity-90 ml-2 drop-shadow">
+                                        <i class="fa-solid fa-feather-pointed"></i>
+                                    </div>
+                                </div>
+
+                                <div class="bg-brand-navy/80 backdrop-blur p-4 rounded-2xl border border-slate-700 space-y-2">
+                                    <h3 class="text-2xl font-black gold-gradient-text uppercase">Su Tiempo es EURO</h3>
+                                    <p class="text-xs text-slate-300" data-i18n="hero_card_sub">Garantizamos la máxima rapidez para envíos locales, nacionales e internacionales.</p>
+                                </div>
+
+                                <div class="flex justify-around items-center text-xs text-slate-300 border-t border-slate-800 pt-4">
+                                    <div class="flex items-center space-x-1">
+                                        <i class="fa-solid fa-circle-check text-brand-gold"></i>
+                                        <span data-i18n="badge_fleet">Flota Propia</span>
+                                    </div>
+                                    <div class="flex items-center space-x-1">
+                                        <i class="fa-solid fa-circle-check text-brand-gold"></i>
+                                        <span data-i18n="badge_express">Express 24h</span>
+                                    </div>
+                                    <div class="flex items-center space-x-1">
+                                        <i class="fa-solid fa-circle-check text-brand-gold"></i>
+                                        <span data-i18n="badge_tracking">Seguimiento</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating Badges -->
+                        <div class="absolute -bottom-6 -left-6 bg-brand-gold text-brand-navy p-3 rounded-2xl font-bold shadow-xl flex items-center space-x-2 text-xs sm:text-sm border-2 border-white">
+                            <i class="fa-solid fa-phone-volume text-lg"></i>
+                            <span>Atención ES / EN</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- MOTTO BANNER -->
+    <section class="bg-gradient-to-r from-brand-blue via-brand-lightBlue to-brand-blue py-8 border-y border-brand-gold/30">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-wide uppercase">
+                " <span class="text-brand-gold">Mandó, Llegó.</span> Atención rápida sin complicaciones "
+            </h2>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="servicios" class="py-24 bg-brand-navy relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <h2 class="text-xs font-bold tracking-widest text-brand-gold uppercase" data-i18n="serv_subtitle">Lo Que Hacemos Por Ti</h2>
+                <p class="text-3xl sm:text-5xl font-black text-white" data-i18n="serv_title">Nuestros Servicios de Transporte</p>
+                <div class="w-20 h-1 gold-bg-gradient mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-brand-cardBg p-8 rounded-3xl border border-slate-700/80 hover:border-brand-gold transition-all duration-300 hover:-translate-y-2 group shadow-lg">
+                    <div class="w-16 h-16 rounded-2xl gold-bg-gradient flex items-center justify-center text-brand-navy text-3xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4" data-i18n="s1_title">Envíos Exprés Directos</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6" data-i18n="s1_desc">
+                        Transporte directo de puerta a puerta sin intermediarios. Su paquete viaja de inmediato a bordo de nuestras Ford Transit acondicionadas.
+                    </p>
+                    <ul class="space-y-2 text-xs text-slate-300">
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-brand-gold"></i><span data-i18n="s1_i1">Entregas el mismo día / 24h</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-brand-gold"></i><span data-i18n="s1_i2">Carga prioritaria urgente</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-brand-gold"></i><span data-i18n="s1_i3">Confirmación inmediata</span></li>
+                    </ul>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-brand-cardBg p-8 rounded-3xl border border-slate-700/80 hover:border-brand-gold transition-all duration-300 hover:-translate-y-2 group shadow-lg">
+                    <div class="w-16 h-16 rounded-2xl gold-bg-gradient flex items-center justify-center text-brand-navy text-3xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-boxes-packing"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4" data-i18n="s2_title">Transporte de Paquetería</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6" data-i18n="s2_desc">
+                        Gestión eficiente de mercancías, paquetería comercial, equipaje y carga ligera con cobertura flexible adaptada a sus horarios.
+                    </p>
+                    <ul class="space-y-2 text-xs text-slate-300">
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-brand-gold"></i><span data-i18n="s2_i1">Cuidado especial de frágiles</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-brand-gold"></i><span data-i18n="s2_i2">Carga y descarga asistida</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-brand-gold"></i><span data-i18n="s2_i3">Aseguramiento de carga</span></li>
+                    </ul>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-brand-cardBg p-8 rounded-3xl border border-slate-700/80 hover:border-brand-gold transition-all duration-300 hover:-translate-y-2 group shadow-lg">
+                    <div class="w-16 h-16 rounded-2xl gold-bg-gradient flex items-center justify-center text-brand-navy text-3xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-route"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4" data-i18n="s3_title">Rutas Personalizadas</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6" data-i18n="s3_desc">
+                        Soluciones logísticas a medida para empresas y particulares. Programación de rutas recurrentes y transporte urgente interurbano.
+                    </p>
+                    <ul class="space-y-2 text-xs text-slate-300">
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-brand-gold"></i><span data-i18n="s3_i1">Atención bilingüe ES / EN</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-brand-gold"></i><span data-i18n="s3_i2">Tarifas transparentes sin sorpresas</span></li>
+                        <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-brand-gold"></i><span data-i18n="s3_i3">Atención al cliente directa</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE CALCULATOR / QUOTE SECTION -->
+    <section id="cotizacion" class="py-20 bg-brand-cardBg/50 border-y border-slate-800">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-brand-navy rounded-3xl p-6 sm:p-10 border border-brand-gold/40 shadow-2xl relative overflow-hidden">
+                <div class="text-center max-w-2xl mx-auto mb-8 space-y-2">
+                    <span class="text-xs font-bold text-brand-gold uppercase tracking-widest" data-i18n="calc_subtitle">Calculadora Rápida</span>
+                    <h2 class="text-3xl font-black text-white" data-i18n="calc_title">Solicita tu Cotización al Instante</h2>
+                    <p class="text-sm text-slate-300" data-i18n="calc_desc">Ingresa los datos de tu envío y obtén un estimado inmediato (incluyendo trayecto de ida y vuelta) o envíalo directo a nuestro WhatsApp.</p>
+                </div>
+
+                <form id="quoteForm" onsubmit="calculateQuote(event)" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Origin -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 uppercase mb-2" data-i18n="lbl_origin">Origen de Recogida</label>
+                            <div class="relative">
+                                <i class="fa-solid fa-location-dot absolute left-4 top-3.5 text-brand-gold"></i>
+                                <input type="text" id="origin" required placeholder="Ej: Valencia, Castellón..." 
+                                       class="w-full bg-brand-cardBg border border-slate-700 rounded-xl py-3 pl-11 pr-4 text-white placeholder-slate-500 focus:outline-none focus:border-brand-gold transition-colors text-sm">
+                            </div>
+                        </div>
+
+                        <!-- Destination -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 uppercase mb-2" data-i18n="lbl_destination">Destino de Entrega</label>
+                            <div class="relative">
+                                <i class="fa-solid fa-flag-checkered absolute left-4 top-3.5 text-brand-gold"></i>
+                                <input type="text" id="destination" required placeholder="Ej: Madrid, Barcelona, Alicante..." 
+                                       class="w-full bg-brand-cardBg border border-slate-700 rounded-xl py-3 pl-11 pr-4 text-white placeholder-slate-500 focus:outline-none focus:border-brand-gold transition-colors text-sm">
+                            </div>
+                        </div>
+
+                        <!-- Cargo Type -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 uppercase mb-2" data-i18n="lbl_type">Tipo de Carga</label>
+                            <select id="cargoType" class="w-full bg-brand-cardBg border border-slate-700 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-brand-gold transition-colors text-sm">
+                                <option value="small" data-i18n="opt_small">Paquete Pequeño / Documentación</option>
+                                <option value="medium" data-i18n="opt_medium">Caja Mediana
