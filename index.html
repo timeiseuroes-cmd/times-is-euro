@@ -361,13 +361,6 @@
                                        class="w-full bg-brand-cardBg border border-slate-700 rounded-xl py-3 pl-11 pr-4 text-white placeholder-slate-500 focus:outline-none focus:border-brand-gold transition-colors text-sm">
                             </div>
                         </div>
-
-                        <!-- Estimated Weight -->
-                        <div class="md:col-span-2">
-                            <label class="block text-xs font-bold text-slate-300 uppercase mb-2" data-i18n="lbl_weight">Peso Aprox. (kg)</label>
-                            <input type="number" id="weight" min="1" max="1500" placeholder="Ej: 50" required 
-                                   class="w-full bg-brand-cardBg border border-slate-700 rounded-xl py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:border-brand-gold transition-colors text-sm">
-                        </div>
                     </div>
 
                     <div class="flex flex-col sm:flex-row gap-4 pt-4">
@@ -541,7 +534,6 @@
                 calc_desc: "Ingresa los datos de tu envío y obtén un estimado inmediato (incluyendo trayecto de ida y vuelta) o envíalo directo a nuestro WhatsApp.",
                 lbl_origin: "Origen de Recogida",
                 lbl_destination: "Destino de Entrega",
-                lbl_weight: "Peso Aprox. (kg)",
                 btn_calc: "Calcular Estimado (Ida y Vuelta)",
                 btn_direct_wa: "Enviar Consulta a WhatsApp",
                 res_title: "Estimación de Servicio (Ida y Vuelta)",
@@ -611,7 +603,6 @@
                 calc_desc: "Enter your shipment details and get an immediate estimate (round trip included) or send it directly to our WhatsApp.",
                 lbl_origin: "Pickup Origin",
                 lbl_destination: "Delivery Destination",
-                lbl_weight: "Approx. Weight (kg)",
                 btn_calc: "Calculate Estimate (Round Trip)",
                 btn_direct_wa: "Send Inquiry to WhatsApp",
                 res_title: "Service Estimate (Round Trip)",
@@ -665,44 +656,38 @@
         }
 
         /**
-         * FÓRMULA DE CÁLCULO EXATA:
-         * - València -> Castellón (150 km totales | 100 kg) = € 143,00
-         * - València -> Madrid (700 km totales | 600 kg) = € 550,00
+         * FÓRMULA DE CÁLCULO EXCLUSIVA POR DISTÂNCIA (SEM PESO):
+         * - València -> Castellón (150 km totales ida/vuelta) = € 143,00
+         * - València -> Madrid (700 km totales ida/vuelta) = € 550,00
          */
         function calculateQuote(event) {
             if (event) event.preventDefault();
 
             const origin = document.getElementById('origin').value.trim();
             const destination = document.getElementById('destination').value.trim();
-            const weight = parseFloat(document.getElementById('weight').value) || 0;
 
-            let distanciaIdaKm = 40; 
+            let valorFinal = 0;
+            let distanciaTotalKm = 0;
+
             const destLower = destination.toLowerCase();
             const origLower = origin.toLowerCase();
-            
-            if (destLower.includes('madrid') || origLower.includes('madrid')) {
-                distanciaIdaKm = 350;
-            } else if (destLower.includes('castellon') || destLower.includes('castellón')) {
-                distanciaIdaKm = 75;
-            } else if (destLower.includes('barcelona')) {
-                distanciaIdaKm = 350;
-            } else if (destLower.includes('alicante')) {
-                distanciaIdaKm = 170;
-            } else if (destLower.includes('valencia') || destLower.includes('valència')) {
-                distanciaIdaKm = 15;
+
+            if (destLower.includes('castellon') || destLower.includes('castellón') || origLower.includes('castellon') || origLower.includes('castellón')) {
+                valorFinal = 143.00;
+                distanciaTotalKm = 150;
+            } else if (destLower.includes('madrid') || origLower.includes('madrid')) {
+                valorFinal = 550.00;
+                distanciaTotalKm = 700;
+            } else {
+                // Cálculo proporcional para outras cidades
+                let distanciaIdaKm = 40;
+                if (destLower.includes('barcelona')) distanciaIdaKm = 350;
+                else if (destLower.includes('alicante')) distanciaIdaKm = 170;
+                else if (destLower.includes('valencia') || destLower.includes('valència')) distanciaIdaKm = 15;
+
+                distanciaTotalKm = distanciaIdaKm * 2;
+                valorFinal = 50.00 + (distanciaTotalKm * 0.62);
             }
-
-            // Distância Total (Ida e Volta Automática)
-            const distanciaTotalKm = distanciaIdaKm * 2;
-
-            const TAXA_BASE = 50.00;
-            const PRECO_POR_KM = 0.35;
-            const PRECO_POR_KG = 0.35;
-
-            const custoDistancia = distanciaTotalKm * PRECO_POR_KM;
-            const custoPeso = weight * PRECO_POR_KG;
-
-            const valorFinal = TAXA_BASE + custoDistancia + custoPeso;
 
             const resultDiv = document.getElementById('quoteResult');
             const priceRange = document.getElementById('priceRange');
@@ -713,13 +698,13 @@
             if(currentLang === 'es') {
                 quoteDetails.innerHTML = `
                     <strong>Ruta (Ida y Vuelta):</strong> ${origin} ➔ ${destination} ➔ ${origin} (${distanciaTotalKm} km totales)<br>
-                    <strong>Desglose:</strong> Base (€50) + Distancia (€${custoDistancia.toFixed(2)}) + Peso (${weight} kg = €${custoPeso.toFixed(2)})<br>
+                    <strong>Desglose:</strong> Tarifa Directa por Trayecto (Ford Transit Express)<br>
                     <span class="text-brand-gold">Nota: Peajes y tiempo de espera excedente se cobran a parte.</span>
                 `;
             } else {
                 quoteDetails.innerHTML = `
                     <strong>Route (Round Trip):</strong> ${origin} ➔ ${destination} ➔ ${origin} (${distanciaTotalKm} total km)<br>
-                    <strong>Breakdown:</strong> Base (€50) + Distance (€${custoDistancia.toFixed(2)}) + Weight (${weight} kg = €${custoPeso.toFixed(2)})<br>
+                    <strong>Breakdown:</strong> Direct Route Rate (Ford Transit Express)<br>
                     <span class="text-brand-gold">Note: Tolls and excess waiting time are billed separately.</span>
                 `;
             }
@@ -731,11 +716,10 @@
         function sendWhatsAppQuote() {
             const origin = document.getElementById('origin').value || 'València';
             const destination = document.getElementById('destination').value || 'No especificado';
-            const weight = document.getElementById('weight').value || 'No especificado';
 
             const text = currentLang === 'es' ? 
-                `Hola, quisiera solicitar un presupuesto de transporte (Ida y Vuelta):\n- Origen: ${origin}\n- Destino: ${destination}\n- Peso Aprox: ${weight} kg` :
-                `Hello, I would like to request a transport quote (Round Trip):\n- Origin: ${origin}\n- Destination: ${destination}\n- Approx Weight: ${weight} kg`;
+                `Hola, quisiera solicitar un presupuesto de transporte (Ida y Vuelta):\n- Origen: ${origin}\n- Destino: ${destination}` :
+                `Hello, I would like to request a transport quote (Round Trip):\n- Origin: ${origin}\n- Destination: ${destination}`;
             
             const encodedText = encodeURIComponent(text);
             window.open(`https://wa.me/34691321485?text=${encodedText}`, '_blank');
