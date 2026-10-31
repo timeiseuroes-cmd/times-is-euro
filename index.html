@@ -362,9 +362,56 @@
                             </div>
                         </div>
 
-                        <!-- Cargo Type -->
+                        <!-- Cargo Type / Handling (REVISADO: PALETES / CARGA SOLTA E OPERAÇÃO) -->
                         <div>
-                            <label class="block text-xs font-bold text-slate-300 uppercase mb-2" data-i18n="lbl_type">Tipo de Carga</label>
+                            <label class="block text-xs font-bold text-slate-300 uppercase mb-2" data-i18n="lbl_type">Tipo de Carga y Carga/Descarga</label>
                             <select id="cargoType" class="w-full bg-brand-cardBg border border-slate-700 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-brand-gold transition-colors text-sm">
-                                <option value="small" data-i18n="opt_small">Paquete Pequeño / Documentación</option>
-                                <option value="medium" data-i18n="opt_medium">Caja Mediana
+                                <option value="palete_mecanica">Palete(s) — Carga e Descarga por Empilhadeira (Mecanizada)</option>
+                                <option value="palete_manual">Palete(s) — Carga e Descarga Manual (Sem empilhadeira)</option>
+                                <option value="solta_manual">Carga Solta / Volumes — Carga e Descarga Manual</option>
+                                <option value="so_transporte">Carga Solta — Apenas Transporte (Cliente carrega e descarrega)</option>
+                            </select>
+                        </div>
+
+                        <!-- Estimated Weight -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 uppercase mb-2" data-i18n="lbl_weight">Peso Aprox. (kg)</label>
+                            <input type="number" id="weight" min="1" max="1500" placeholder="Ej: 50" required 
+                                   class="w-full bg-brand-cardBg border border-slate-700 rounded-xl py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:border-brand-gold transition-colors text-sm">
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                        <button type="submit" class="w-full sm:w-1/2 gold-bg-gradient text-brand-navy font-bold py-3.5 rounded-xl hover:scale-[1.02] transition-transform text-sm flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-calculator"></i>
+                            <span data-i18n="btn_calc">Calcular Estimado (Ida y Vuelta)</span>
+                        </button>
+                        <button type="button" onclick="sendWhatsAppQuote()" class="w-full sm:w-1/2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 rounded-xl transition-all text-sm flex items-center justify-center space-x-2 shadow-lg">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                            <span data-i18n="btn_direct_wa">Enviar Consulta a WhatsApp</span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Result Box -->
+                <div id="quoteResult" class="hidden mt-8 p-6 bg-brand-cardBg/90 rounded-2xl border border-brand-gold text-center space-y-3">
+                    <h4 class="text-xs font-bold text-brand-gold uppercase tracking-widest" data-i18n="res_title">Estimación de Servicio (Ida y Vuelta)</h4>
+                    <p class="text-3xl font-black text-white" id="priceRange">€0.00</p>
+                    <p class="text-xs text-slate-300" id="quoteDetails"></p>
+                    <p class="text-[11px] text-slate-400 italic" data-i18n="res_disclaimer">*Peajes y tiempo de espera excedente se cobran a parte.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY CHOOSE US / ADVANTAGES -->
+    <section id="nosotros" class="py-24 bg-brand-navy">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <span class="text-xs font-bold text-brand-gold tracking-widest uppercase" data-i18n="why_sub">Ventajas de Elegirnos</span>
+                    <h2 class="text-3xl sm:text-5xl font-black text-white leading-tight" data-i18n="why_title">
+                        Rapidez, Compromiso y Atención Bilingüe
+                    </h2>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed" data-i18n="why_desc">
+                        En <strong class="text-white">TIME IS EURO</strong> entendemos que cada minuto cuenta. Nuestra misión es brindarle un servicio directo, transparente y sin complicaciones
