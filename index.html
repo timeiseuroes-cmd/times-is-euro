@@ -347,7 +347,7 @@
                             <label class="block text-xs font-bold text-slate-300 uppercase mb-2" data-i18n="lbl_origin">Origen de Recogida</label>
                             <div class="relative">
                                 <i class="fa-solid fa-location-dot absolute left-4 top-3.5 text-brand-gold"></i>
-                                <input type="text" id="origin" required placeholder="Ej: Valencia, Castellón..." 
+                                <input type="text" id="origin" required placeholder="Ej: Valencia, Benidorm..." 
                                        class="w-full bg-brand-cardBg border border-slate-700 rounded-xl py-3 pl-11 pr-4 text-white placeholder-slate-500 focus:outline-none focus:border-brand-gold transition-colors text-sm">
                             </div>
                         </div>
@@ -357,7 +357,7 @@
                             <label class="block text-xs font-bold text-slate-300 uppercase mb-2" data-i18n="lbl_destination">Destino de Entrega</label>
                             <div class="relative">
                                 <i class="fa-solid fa-flag-checkered absolute left-4 top-3.5 text-brand-gold"></i>
-                                <input type="text" id="destination" required placeholder="Ej: Madrid, Barcelona, Alicante..." 
+                                <input type="text" id="destination" required placeholder="Ej: Madrid, Benidorm, Castellón..." 
                                        class="w-full bg-brand-cardBg border border-slate-700 rounded-xl py-3 pl-11 pr-4 text-white placeholder-slate-500 focus:outline-none focus:border-brand-gold transition-colors text-sm">
                             </div>
                         </div>
@@ -656,9 +656,12 @@
         }
 
         /**
-         * FÓRMULA DE CÁLCULO EXCLUSIVA POR DISTÂNCIA (SEM PESO):
-         * - València -> Castellón (150 km totales ida/vuelta) = € 143,00
-         * - València -> Madrid (700 km totales ida/vuelta) = € 550,00
+         * FÓRMULA DE CÁLCULO ATUALIZADA:
+         * - Tasa Mínima General: € 131,50
+         * - Valor por km (Ida e Volta): € 0,65
+         * - València <-> Benidorm: € 244,00 (280 km ida/vuelta)
+         * - València <-> Castellón: € 143,00 (150 km ida/vuelta)
+         * - València <-> Madrid: € 550,00 (700 km ida/vuelta)
          */
         function calculateQuote(event) {
             if (event) event.preventDefault();
@@ -672,21 +675,28 @@
             const destLower = destination.toLowerCase();
             const origLower = origin.toLowerCase();
 
-            if (destLower.includes('castellon') || destLower.includes('castellón') || origLower.includes('castellon') || origLower.includes('castellón')) {
+            if (destLower.includes('benidorm') || origLower.includes('benidorm')) {
+                valorFinal = 244.00;
+                distanciaTotalKm = 280;
+            } else if (destLower.includes('castellon') || destLower.includes('castellón') || origLower.includes('castellon') || origLower.includes('castellón')) {
                 valorFinal = 143.00;
                 distanciaTotalKm = 150;
             } else if (destLower.includes('madrid') || origLower.includes('madrid')) {
                 valorFinal = 550.00;
                 distanciaTotalKm = 700;
             } else {
-                // Cálculo proporcional para outras cidades
-                let distanciaIdaKm = 40;
+                let distanciaIdaKm = 30;
                 if (destLower.includes('barcelona')) distanciaIdaKm = 350;
                 else if (destLower.includes('alicante')) distanciaIdaKm = 170;
                 else if (destLower.includes('valencia') || destLower.includes('valència')) distanciaIdaKm = 15;
 
                 distanciaTotalKm = distanciaIdaKm * 2;
-                valorFinal = 50.00 + (distanciaTotalKm * 0.62);
+                
+                const TASA_MINIMA = 131.50;
+                const PRECIO_KM = 0.65; // Atualizado para 65 céntimos
+                const calculoBase = TASA_MINIMA + (distanciaTotalKm * PRECIO_KM);
+                
+                valorFinal = Math.max(TASA_MINIMA, calculoBase);
             }
 
             const resultDiv = document.getElementById('quoteResult');
