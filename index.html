@@ -75,7 +75,7 @@
                         <span class="text-2xl font-black tracking-wider text-white leading-none">
                             TIME IS <span class="gold-gradient-text">EURO</span>
                         </span>
-                        <span class="text-[10px] tracking-widest text-slate-300 uppercase font-semibold mt-1">Transports & Express Courier</span>
+                        <span class="text-[10px] tracking-widest text-slate-300 uppercase font-semibold mt-1" data-i18n="header_sub">Transports & Express Courier</span>
                     </div>
                 </a>
 
@@ -100,7 +100,7 @@
                         </button>
                     </div>
 
-                    <a href="https://wa.me/34691321485?text=Hola,%20quisiera%20solicitar%20información%20sobre%20un%20envío." target="_blank" rel="noopener noreferrer" 
+                    <a href="https://wa.me/34691321485?text=Hello,%20I%20would%20like%20to%20request%20information%20about%20a%20shipment." target="_blank" rel="noopener noreferrer" 
                        class="gold-bg-gradient text-brand-navy font-bold px-5 py-2.5 rounded-full hover:shadow-lg hover:scale-105 transition-all flex items-center space-x-2 text-sm shadow-brand-gold/20">
                         <i class="fa-brands fa-whatsapp text-lg"></i>
                         <span>+34 691 321 485</span>
@@ -149,8 +149,8 @@
                     </div>
 
                     <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-none">
-                        Mandó, Llegó. <br>
-                        <span class="gold-gradient-text">Atención rápida sin complicaciones.</span>
+                        <span data-i18n="hero_title_1">Mandó, Llegó.</span> <br>
+                        <span class="gold-gradient-text" data-i18n="hero_title_2">Atención rápida sin complicaciones.</span>
                     </h1>
 
                     <p class="text-lg sm:text-xl text-slate-300 max-w-2xl font-light leading-relaxed mx-auto lg:mx-0" data-i18n="hero_sub">
@@ -227,7 +227,7 @@
                                 </div>
 
                                 <div class="bg-brand-navy/80 backdrop-blur p-4 rounded-2xl border border-slate-700 space-y-2">
-                                    <h3 class="text-2xl font-black gold-gradient-text uppercase">Su Tiempo es EURO</h3>
+                                    <h3 class="text-2xl font-black gold-gradient-text uppercase" data-i18n="hero_card_title">Su Tiempo es EURO</h3>
                                     <p class="text-xs text-slate-300" data-i18n="hero_card_sub">Garantizamos la máxima rapidez para envíos locales, nacionales e internacionales.</p>
                                 </div>
 
@@ -251,7 +251,7 @@
                         <!-- Floating Badges -->
                         <div class="absolute -bottom-6 -left-6 bg-brand-gold text-brand-navy p-3 rounded-2xl font-bold shadow-xl flex items-center space-x-2 text-xs sm:text-sm border-2 border-white">
                             <i class="fa-solid fa-phone-volume text-lg"></i>
-                            <span>Atención ES / EN</span>
+                            <span data-i18n="badge_support">Atención ES / EN</span>
                         </div>
                     </div>
                 </div>
@@ -264,7 +264,7 @@
     <section class="bg-gradient-to-r from-brand-blue via-brand-lightBlue to-brand-blue py-8 border-y border-brand-gold/30">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-wide uppercase">
-                " <span class="text-brand-gold">Mandó, Llegó.</span> Atención rápida sin complicaciones "
+                " <span class="text-brand-gold" data-i18n="banner_quote">Mandó, Llegó.</span> <span data-i18n="banner_sub">Atención rápida sin complicaciones</span> "
             </h2>
         </div>
     </section>
@@ -362,14 +362,14 @@
                             </div>
                         </div>
 
-                        <!-- Cargo Type / Handling (REVISADO: PALETES / CARGA SOLTA E OPERAÇÃO) -->
+                        <!-- Cargo Type / Handling -->
                         <div>
                             <label class="block text-xs font-bold text-slate-300 uppercase mb-2" data-i18n="lbl_type">Tipo de Carga y Carga/Descarga</label>
                             <select id="cargoType" class="w-full bg-brand-cardBg border border-slate-700 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-brand-gold transition-colors text-sm">
-                                <option value="palete_mecanica">Palete(s) — Carga e Descarga por Empilhadeira (Mecanizada)</option>
-                                <option value="palete_manual">Palete(s) — Carga e Descarga Manual (Sem empilhadeira)</option>
-                                <option value="solta_manual">Carga Solta / Volumes — Carga e Descarga Manual</option>
-                                <option value="so_transporte">Carga Solta — Apenas Transporte (Cliente carrega e descarrega)</option>
+                                <option value="palete_mecanica" data-i18n="opt_p_mec">Palets — Carga y Descarga por Carretilla (Mecanizada)</option>
+                                <option value="palete_manual" data-i18n="opt_p_man">Palets — Carga y Descarga Manual (Sin carretilla)</option>
+                                <option value="solta_manual" data-i18n="opt_s_man">Carga Suelta / Bultos — Carga y Descarga Manual</option>
+                                <option value="so_transporte" data-i18n="opt_trans">Carga Suelta — Solo Transporte (Cliente carga y descarga)</option>
                             </select>
                         </div>
 
@@ -414,7 +414,7 @@
                         Rapidez, Compromiso y Atención Bilingüe
                     </h2>
                     <p class="text-slate-300 text-sm sm:text-base leading-relaxed" data-i18n="why_desc">
-                        En <strong class="text-white">TIME IS EURO</strong> entendemos que cada minuto cuenta. Nuestra misión es brindarle un servicio directo, transparente y sin complicaciones.
+                        En TIME IS EURO entendemos que cada minuto cuenta. Nuestra misión es brindarle un servicio directo, transparente y sin complicaciones.
                     </p>
 
                     <div class="space-y-4 pt-2">
@@ -455,12 +455,12 @@
                         <div class="w-20 h-20 mx-auto rounded-3xl gold-bg-gradient flex items-center justify-center text-brand-navy text-4xl shadow-lg">
                             <i class="fa-solid fa-truck-fast"></i>
                         </div>
-                        <h3 class="text-2xl font-black text-white">¿Listo para enviar?</h3>
-                        <p class="text-slate-300 text-sm">Operamos desde València para toda España y Europa con salidas inmediatas.</p>
+                        <h3 class="text-2xl font-black text-white" data-i18n="ready_title">¿Listo para enviar?</h3>
+                        <p class="text-slate-300 text-sm" data-i18n="ready_desc">Operamos desde València para toda España y Europa con salidas inmediatas.</p>
                         <a href="https://wa.me/34691321485?text=Hola,%20quiero%20agendar%20un%20transporte." target="_blank" 
                            class="inline-flex items-center justify-center space-x-2 w-full gold-bg-gradient text-brand-navy font-bold py-4 rounded-xl shadow-lg hover:scale-105 transition-transform">
                             <i class="fa-brands fa-whatsapp text-xl"></i>
-                            <span>Abrir Chat de WhatsApp Directo</span>
+                            <span data-i18n="ready_btn">Abrir Chat de WhatsApp Directo</span>
                         </a>
                     </div>
                 </div>
@@ -478,10 +478,10 @@
                     </div>
                     <span class="text-xl font-black text-white">TIME IS <span class="gold-gradient-text">EURO</span></span>
                 </div>
-                <p class="text-xs text-slate-400">Transporte express y paquetería profesional desde València. Mandó, Llegó.</p>
+                <p class="text-xs text-slate-400" data-i18n="footer_desc">Transporte express y paquetería profesional desde València. Mandó, Llegó.</p>
             </div>
             <div>
-                <h4 class="text-white font-bold mb-3 uppercase text-xs tracking-wider">Contacto Directo</h4>
+                <h4 class="text-white font-bold mb-3 uppercase text-xs tracking-wider" data-i18n="footer_contact">Contacto Directo</h4>
                 <ul class="space-y-2 text-xs">
                     <li><i class="fa-solid fa-phone text-brand-gold mr-2"></i> +34 691 321 485</li>
                     <li><i class="fa-solid fa-envelope text-brand-gold mr-2"></i> contacto@timeiseuro.com</li>
@@ -489,144 +489,168 @@
                 </ul>
             </div>
             <div>
-                <h4 class="text-white font-bold mb-3 uppercase text-xs tracking-wider">Idioma / Language</h4>
+                <h4 class="text-white font-bold mb-3 uppercase text-xs tracking-wider" data-i18n="footer_lang">Idioma / Language</h4>
                 <div class="flex space-x-3">
                     <button onclick="setLanguage('es')" class="px-3 py-1 bg-brand-cardBg border border-slate-700 text-white rounded-lg text-xs font-bold hover:border-brand-gold">🇪🇸 Español</button>
                     <button onclick="setLanguage('en')" class="px-3 py-1 bg-brand-cardBg border border-slate-700 text-white rounded-lg text-xs font-bold hover:border-brand-gold">🇬🇧 English</button>
                 </div>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-8 border-t border-slate-800/60 text-center text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-8 border-t border-slate-800/60 text-center text-xs" data-i18n="footer_copy">
             &copy; 2026 TIME IS EURO. Todos los derechos reservados.
         </div>
     </footer>
 
-    <!-- JAVASCRIPT: LÓGICA DE CÁLCULO E INTERACCIÓN REVISADA -->
+    <!-- JAVASCRIPT: TRANSLATIONS & CALCULATOR -->
     <script>
-        // Funcionalidad de Menú Móvil
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
-
-        // Cambio de Idioma Básico (ES / EN)
-        let currentLang = 'es';
-        function setLanguage(lang) {
-            currentLang = lang;
-            document.getElementById('lang-indicator').innerText = lang.toUpperCase();
-            if(lang === 'es') {
-                document.getElementById('btn-es').className = "px-3 py-1.5 rounded-full font-bold transition-all bg-brand-gold text-brand-navy shadow-sm";
-                document.getElementById('btn-en').className = "px-3 py-1.5 rounded-full font-bold transition-all text-slate-300 hover:text-white";
-            } else {
-                document.getElementById('btn-en').className = "px-3 py-1.5 rounded-full font-bold transition-all bg-brand-gold text-brand-navy shadow-sm";
-                document.getElementById('btn-es').className = "px-3 py-1.5 rounded-full font-bold transition-all text-slate-300 hover:text-white";
-            }
-        }
-
-        function toggleLanguage() {
-            setLanguage(currentLang === 'es' ? 'en' : 'es');
-        }
-
-        /**
-         * SISTEMA DE CÁLCULO REVISADO E AJUSTADO:
-         * - Taxa Base Fixa: € 50,00
-         * - Preço por Km (Ida e Volta): € 0,25 / km
-         * - Preço por Kg: € 0,25 / kg
-         * - Adicional por Tipo de Carga e Operação (Mecanizada vs Manual)
-         */
-        function calculateQuote(event) {
-            if (event) event.preventDefault();
-
-            const origin = document.getElementById('origin').value.trim();
-            const destination = document.getElementById('destination').value.trim();
-            const cargoType = document.getElementById('cargoType').value;
-            const weight = parseFloat(document.getElementById('weight').value) || 0;
-
-            // Distância estimada de ida a partir de València (ou estimativa padrão)
-            let distanciaIdaKm = 40; 
-
-            const destLower = destination.toLowerCase();
-            const origLower = origin.toLowerCase();
-            
-            if (destLower.includes('madrid') || origLower.includes('madrid')) {
-                distanciaIdaKm = 350;
-            } else if (destLower.includes('castellon') || destLower.includes('castellón')) {
-                distanciaIdaKm = 75;
-            } else if (destLower.includes('barcelona')) {
-                distanciaIdaKm = 350;
-            } else if (destLower.includes('alicante')) {
-                distanciaIdaKm = 170;
-            } else if (destLower.includes('valencia') || destLower.includes('valència')) {
-                distanciaIdaKm = 15;
-            }
-
-            // 1. Distância Total (Ida e Volta Automática)
-            const distanciaTotalKm = distanciaIdaKm * 2;
-
-            // 2. Parâmetros da Fórmula Ajustada
-            const TAXA_BASE = 50.00;
-            const PRECO_POR_KM = 0.25; // €0.25 por km no percurso total
-            const PRECO_POR_KG = 0.25; // €0.25 por kg
-
-            const custoDistancia = distanciaTotalKm * PRECO_POR_KM;
-            const custoPeso = weight * PRECO_POR_KG;
-
-            const valorBaseCalculado = TAXA_BASE + custoDistancia + custoPeso;
-
-            // 3. Adicional por Tipo de Carga e Operação
-            let taxaManuseio = 0;
-            let descricaoManuseio = "";
-
-            switch (cargoType) {
-                case 'palete_mecanica':
-                    taxaManuseio = 0;
-                    descricaoManuseio = "Palete (Empilhadeira - Mecanizado)";
-                    break;
-                case 'palete_manual':
-                    taxaManuseio = 20.00;
-                    descricaoManuseio = "Palete (Manual - Transpalete)";
-                    break;
-                case 'solta_manual':
-                    taxaManuseio = 30.00;
-                    descricaoManuseio = "Carga Solta (Manual)";
-                    break;
-                case 'so_transporte':
-                    taxaManuseio = 0;
-                    descricaoManuseio = "Carga Solta (Só Transporte)";
-                    break;
-            }
-
-            const valorFinal = valorBaseCalculado + taxaManuseio;
-
-            // Exibir Resultado na Tela
-            const resultDiv = document.getElementById('quoteResult');
-            const priceRange = document.getElementById('priceRange');
-            const quoteDetails = document.getElementById('quoteDetails');
-
-            priceRange.innerText = `€${valorFinal.toFixed(2)}`;
-            quoteDetails.innerHTML = `
-                <strong>Ruta (Ida y Vuelta):</strong> ${origin} ➔ ${destination} ➔ ${origin} (${distanciaTotalKm} km totales)<br>
-                <strong>Operación:</strong> ${descricaoManuseio}<br>
-                <strong>Desglose:</strong> Base (€50) + Distancia (€${custoDistancia.toFixed(2)}) + Peso (${weight} kg = €${custoPeso.toFixed(2)}) ${taxaManuseio > 0 ? `+ Carga/Descarga (€${taxaManuseio.toFixed(2)})` : ''}<br>
-                <span class="text-brand-gold">Nota: Peajes y tiempo de espera excedente se cobran a parte.</span>
-            `;
-            
-            resultDiv.classList.remove('hidden');
-        }
-
-        // Enviar cotação formatada para o WhatsApp
-        function sendWhatsAppQuote() {
-            const origin = document.getElementById('origin').value || 'València';
-            const destination = document.getElementById('destination').value || 'No especificado';
-            const cargoTypeSelect = document.getElementById('cargoType');
-            const cargoTypeText = cargoTypeSelect.options[cargoTypeSelect.selectedIndex].text;
-            const weight = document.getElementById('weight').value || 'No especificado';
-
-            const text = `Hola, quisiera solicitar un presupuesto de transporte (Ida y Vuelta):\n- Origen: ${origin}\n- Destino: ${destination}\n- Tipo de Carga y Operación: ${cargoTypeText}\n- Peso Aprox: ${weight} kg`;
-            const encodedText = encodeURIComponent(text);
-            
-            window.open(`https://wa.me/34691321485?text=${encodedText}`, '_blank');
-        }
-    </script>
-</body>
-</html>
+        // Traducciones / Translations
+        const translations = {
+            es: {
+                header_sub: "Transports & Express Courier",
+                nav_home: "Inicio",
+                nav_services: "Servicios",
+                nav_quote: "Cotización",
+                nav_about: "Ventajas",
+                nav_contact: "Contacto",
+                hero_badge: "ENVÍOS RÁPIDOS A LA VELOCIDAD DE LA LUZ",
+                hero_title_1: "Mandó, Llegó.",
+                hero_title_2: "Atención rápida sin complicaciones.",
+                hero_sub: "Especialistas en transporte urgente y logística integral con flota de furgonetas Ford Transit equipadas para máxima seguridad y eficiencia puntual.",
+                feat_time_title: "Tiempo Es Gold",
+                feat_time_val: "Entrega Express",
+                feat_safe_title: "Seguridad",
+                feat_safe_val: "Garantizada",
+                feat_lang_title: "Atención",
+                btn_quote: "Calcular Presupuesto",
+                btn_whatsapp: "Contactar por WhatsApp",
+                hero_card_title: "Su Tiempo es EURO",
+                hero_card_sub: "Garantizamos la máxima rapidez para envíos locales, nacionales e internacionales.",
+                badge_fleet: "Flota Propia",
+                badge_express: "Express 24h",
+                badge_tracking: "Seguimiento",
+                badge_support: "Atención ES / EN",
+                banner_quote: "Mandó, Llegó.",
+                banner_sub: "Atención rápida sin complicaciones",
+                serv_subtitle: "Lo Que Hacemos Por Ti",
+                serv_title: "Nuestros Servicios de Transporte",
+                s1_title: "Envíos Exprés Directos",
+                s1_desc: "Transporte directo de puerta a puerta sin intermediarios. Su paquete viaja de inmediato a bordo de nuestras Ford Transit acondicionadas.",
+                s1_i1: "Entregas el mismo día / 24h",
+                s1_i2: "Carga prioritaria urgente",
+                s1_i3: "Confirmación inmediata",
+                s2_title: "Transporte de Paquetería",
+                s2_desc: "Gestión eficiente de mercancías, paquetería comercial, equipaje y carga ligera con cobertura flexible adaptada a sus horarios.",
+                s2_i1: "Cuidado especial de frágiles",
+                s2_i2: "Carga y descarga asistida",
+                s2_i3: "Aseguramiento de carga",
+                s3_title: "Rutas Personalizadas",
+                s3_desc: "Soluciones logísticas a medida para empresas y particulares. Programación de rutas recurrentes y transporte urgente interurbano.",
+                s3_i1: "Atención bilingüe ES / EN",
+                s3_i2: "Tarifas transparentes sin sorpresas",
+                s3_i3: "Atención al cliente directa",
+                calc_subtitle: "Calculadora Rápida",
+                calc_title: "Solicita tu Cotización al Instante",
+                calc_desc: "Ingresa los datos de tu envío y obtén un estimado inmediato (incluyendo trayecto de ida y vuelta) o envíalo directo a nuestro WhatsApp.",
+                lbl_origin: "Origen de Recogida",
+                lbl_destination: "Destino de Entrega",
+                lbl_type: "Tipo de Carga y Carga/Descarga",
+                opt_p_mec: "Palets — Carga y Descarga por Carretilla (Mecanizada)",
+                opt_p_man: "Palets — Carga y Descarga Manual (Sin carretilla)",
+                opt_s_man: "Carga Suelta / Bultos — Carga y Descarga Manual",
+                opt_trans: "Carga Suelta — Solo Transporte (Cliente carga y descarga)",
+                lbl_weight: "Peso Aprox. (kg)",
+                btn_calc: "Calcular Estimado (Ida y Vuelta)",
+                btn_direct_wa: "Enviar Consulta a WhatsApp",
+                res_title: "Estimación de Servicio (Ida y Vuelta)",
+                res_disclaimer: "*Peajes y tiempo de espera excedente se cobran a parte.",
+                why_sub: "Ventajas de Elegirnos",
+                why_title: "Rapidez, Compromiso y Atención Bilingüe",
+                why_desc: "En TIME IS EURO entendemos que cada minuto cuenta. Nuestra misión es brindarle un servicio directo, transparente y sin complicaciones.",
+                adv1_title: "Fuerza Ford Transit",
+                adv1_desc: "Vehículos modernos y mantenimiento óptimo para garantizar que su carga viaje rápida y segura.",
+                adv2_title: "Atención en Español e Inglés",
+                adv2_desc: "Comunicación fluida para clientes nacionales e internacionales sin barreras de idioma.",
+                adv3_title: "Mandó, Llegó",
+                adv3_desc: "Cumplimiento estricto de los tiempos de entrega acordados.",
+                ready_title: "¿Listo para enviar?",
+                ready_desc: "Operamos desde València para toda España y Europa con salidas inmediatas.",
+                ready_btn: "Abrir Chat de WhatsApp Directo",
+                footer_desc: "Transporte express y paquetería profesional desde València. Mandó, Llegó.",
+                footer_contact: "Contacto Directo",
+                footer_lang: "Idioma / Language",
+                footer_copy: "&copy; 2026 TIME IS EURO. Todos los derechos reservados."
+            },
+            en: {
+                header_sub: "Transports & Express Courier",
+                nav_home: "Home",
+                nav_services: "Services",
+                nav_quote: "Quote",
+                nav_about: "Advantages",
+                nav_contact: "Contact",
+                hero_badge: "FAST SHIPMENTS AT THE SPEED OF LIGHT",
+                hero_title_1: "Sent, Arrived.",
+                hero_title_2: "Fast service without complications.",
+                hero_sub: "Specialists in express transport and comprehensive logistics with a fleet of Ford Transit vans equipped for maximum safety and punctual efficiency.",
+                feat_time_title: "Time Is Gold",
+                feat_time_val: "Express Delivery",
+                feat_safe_title: "Security",
+                feat_safe_val: "Guaranteed",
+                feat_lang_title: "Support",
+                btn_quote: "Calculate Quote",
+                btn_whatsapp: "Contact via WhatsApp",
+                hero_card_title: "Your Time is EURO",
+                hero_card_sub: "We guarantee maximum speed for local, national, and international shipments.",
+                badge_fleet: "Own Fleet",
+                badge_express: "Express 24h",
+                badge_tracking: "Live Tracking",
+                badge_support: "Support ES / EN",
+                banner_quote: "Sent, Arrived.",
+                banner_sub: "Fast service without complications",
+                serv_subtitle: "What We Do For You",
+                serv_title: "Our Transport Services",
+                s1_title: "Direct Express Shipments",
+                s1_desc: "Direct door-to-door transport without intermediaries. Your package travels immediately aboard our conditioned Ford Transit vans.",
+                s1_i1: "Same day / 24h delivery",
+                s1_i2: "Priority urgent cargo",
+                s1_i3: "Immediate confirmation",
+                s2_title: "Parcel Transport",
+                s2_desc: "Efficient management of goods, commercial parcels, luggage, and light cargo with flexible coverage tailored to your schedule.",
+                s2_i1: "Special care for fragile items",
+                s2_i2: "Assisted loading and unloading",
+                s2_i3: "Cargo insurance coverage",
+                s3_title: "Custom Routes",
+                s3_desc: "Tailored logistics solutions for businesses and individuals. Recurring route scheduling and intercity urgent transport.",
+                s3_i1: "Bilingual support ES / EN",
+                s3_i2: "Transparent rates without surprises",
+                s3_i3: "Direct customer service",
+                calc_subtitle: "Quick Calculator",
+                calc_title: "Request Your Quote Instantly",
+                calc_desc: "Enter your shipment details and get an immediate estimate (round trip included) or send it directly to our WhatsApp.",
+                lbl_origin: "Pickup Origin",
+                lbl_destination: "Delivery Destination",
+                lbl_type: "Cargo Type & Handling",
+                opt_p_mec: "Pallets — Forklift Loading/Unloading (Mechanized)",
+                opt_p_man: "Pallets — Manual Loading/Unloading (No forklift)",
+                opt_s_man: "Loose Cargo / Boxes — Manual Loading/Unloading",
+                opt_trans: "Loose Cargo — Transport Only (Client loads/unloads)",
+                lbl_weight: "Approx. Weight (kg)",
+                btn_calc: "Calculate Estimate (Round Trip)",
+                btn_direct_wa: "Send Inquiry to WhatsApp",
+                res_title: "Service Estimate (Round Trip)",
+                res_disclaimer: "*Tolls and excess waiting time are billed separately.",
+                why_sub: "Why Choose Us",
+                why_title: "Speed, Commitment, and Bilingual Support",
+                why_desc: "At TIME IS EURO we understand every minute counts. Our mission is to provide a direct, transparent, and hassle-free service.",
+                adv1_title: "Ford Transit Power",
+                adv1_desc: "Modern vehicles and optimal maintenance to ensure your cargo travels fast and safe.",
+                adv2_title: "Spanish & English Support",
+                adv2_desc: "Smooth communication for national and international clients without language barriers.",
+                adv3_title: "Sent, Arrived",
+                adv3_desc: "Strict compliance with agreed delivery schedules.",
+                ready_title: "Ready to ship?",
+                ready_desc: "We operate from València across Spain and Europe with immediate departures.",
+                ready_btn: "Open Direct WhatsApp Chat",
+                footer_desc: "Express transport and professional parcel delivery from València. Sent, Arrived.",
+                footer_contact: "Direct Contact",
+                footer_lang: "Language / Idioma",
+                footer_copy: "&copy; 202
