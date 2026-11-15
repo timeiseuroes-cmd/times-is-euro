@@ -143,7 +143,13 @@
                 
                 <!-- Left Text Content -->
                 <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
-                    <div class="inline-flex items-center space-x-2 bg-brand-lightBlue/20 border border-brand-lightBlue/40 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold text-brand-gold">
+                    <!-- ETIQUETA / AVISO PROMOCIONAL DE 15% DE DESCUENTO NA CARA DO SITE -->
+                    <div class="inline-flex items-center space-x-3 bg-brand-gold text-brand-navy px-5 py-2.5 rounded-full text-xs sm:text-sm font-black shadow-lg glow-gold animate-bounce">
+                        <i class="fa-solid fa-tag text-base"></i>
+                        <span data-i18n="promo_banner">¡PROMOCIÓN ESPECIAL: 15% DE DESCUENTO APLICADO!</span>
+                    </div>
+
+                    <div class="inline-flex items-center space-x-2 bg-brand-lightBlue/20 border border-brand-lightBlue/40 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold text-brand-gold ml-2">
                         <i class="fa-solid fa-bolt text-brand-gold animate-pulse"></i>
                         <span data-i18n="hero_badge">ENVÍOS RÁPIDOS A LA VELOCIDAD DE LA LUZ</span>
                     </div>
@@ -337,7 +343,7 @@
                 <div class="text-center max-w-2xl mx-auto mb-8 space-y-2">
                     <span class="text-xs font-bold text-brand-gold uppercase tracking-widest" data-i18n="calc_subtitle">Calculadora Rápida</span>
                     <h2 class="text-3xl font-black text-white" data-i18n="calc_title">Solicita tu Cotización al Instante</h2>
-                    <p class="text-sm text-slate-300" data-i18n="calc_desc">Ingresa los datos de tu envío y obtén un estimado inmediato con 15% de descuento o envíalo directo a nuestro WhatsApp.</p>
+                    <p class="text-sm text-slate-300" data-i18n="calc_desc">Ingresa los datos de tu envío y obtén un estimado inmediato con el 15% de descuento aplicado o envíalo directo a nuestro WhatsApp.</p>
                 </div>
 
                 <form id="quoteForm" onsubmit="calculateQuote(event)" class="space-y-6">
@@ -377,7 +383,7 @@
 
                 <!-- Result Box -->
                 <div id="quoteResult" class="hidden mt-8 p-6 bg-brand-cardBg/90 rounded-2xl border border-brand-gold text-center space-y-3">
-                    <h4 class="text-xs font-bold text-brand-gold uppercase tracking-widest" data-i18n="res_title">Estimación de Servicio (Incluye 15% de descuento)</h4>
+                    <h4 class="text-xs font-bold text-brand-gold uppercase tracking-widest" data-i18n="res_title">Estimación de Servicio (¡Incluye 15% de descuento!)</h4>
                     <p class="text-3xl font-black text-white" id="priceRange">€0.00</p>
                     <p class="text-xs text-slate-300" id="quoteDetails"></p>
                     <p class="text-[11px] text-slate-400 italic" data-i18n="res_disclaimer">*El precio no incluye IVA. Tasas adicionales (como peajes o tiempo de espera excedente) pueden cobrarse a parte.</p>
@@ -483,6 +489,7 @@
 
         const translations = {
             es: {
+                promo_banner: "¡PROMOCIÓN ESPECIAL: 15% DE DESCUENTO APLICADO!",
                 header_sub: "Transports & Express Courier",
                 nav_home: "Inicio",
                 nav_services: "Servicios",
@@ -527,12 +534,12 @@
                 s3_i3: "Atención al cliente directa",
                 calc_subtitle: "Calculadora Rápida",
                 calc_title: "Solicita tu Cotización al Instante",
-                calc_desc: "Ingresa los datos de tu envío y obtén un estimado inmediato con 15% de descuento o envíalo directo a nuestro WhatsApp.",
+                calc_desc: "Ingresa los datos de tu envío y obtén un estimado inmediato con el 15% de descuento aplicado o envíalo directo a nuestro WhatsApp.",
                 lbl_origin: "Origen de Recogida",
                 lbl_destination: "Destino de Entrega",
                 btn_calc: "Calcular Estimado",
                 btn_direct_wa: "Enviar Consulta a WhatsApp",
-                res_title: "Estimación de Servicio (Incluye 15% de descuento)",
+                res_title: "Estimación de Servicio (¡Incluye 15% de descuento!)",
                 res_disclaimer: "*El precio no incluye IVA. Tasas adicionales (como peajes o tiempo de espera excedente) pueden cobrarse a parte.",
                 why_sub: "Ventajas de Elegirnos",
                 why_title: "Rapidez, Compromiso y Atención Bilingüe",
@@ -553,6 +560,7 @@
                 footer_rights: "Todos los derechos reservados."
             },
             en: {
+                promo_banner: "SPECIAL PROMOTION: 15% DISCOUNT APPLIED!",
                 header_sub: "Transports & Express Courier",
                 nav_home: "Home",
                 nav_services: "Services",
@@ -597,12 +605,12 @@
                 s3_i3: "Direct customer service",
                 calc_subtitle: "Quick Calculator",
                 calc_title: "Request Your Instant Quote",
-                calc_desc: "Enter your shipment details and get an immediate estimate with a 15% discount or send it directly to our WhatsApp.",
+                calc_desc: "Enter your shipment details and get an immediate estimate with the 15% discount applied or send it directly to our WhatsApp.",
                 lbl_origin: "Pickup Origin",
                 lbl_destination: "Delivery Destination",
                 btn_calc: "Calculate Estimate",
                 btn_direct_wa: "Send Inquiry to WhatsApp",
-                res_title: "Service Estimate (Includes 15% discount)",
+                res_title: "Service Estimate (Includes 15% discount!)",
                 res_disclaimer: "*Price does not include VAT. Additional fees (such as tolls or excess waiting time) may be charged separately.",
                 why_sub: "Why Choose Us",
                 why_title: "Speed, Commitment, and Bilingual Support",
@@ -658,14 +666,14 @@
             const origin = document.getElementById('origin').value;
             const destination = document.getElementById('destination').value;
 
-            // Cálculo base simulado y aplicación del 15% de descuento
-            let basePrice = Math.floor(Math.random() * 80) + 40; 
+            // Cálculo original (duplicado del trayecto base) aplicando el 15% de descuento
+            let basePrice = (Math.floor(Math.random() * 80) + 40) * 2; 
             let discountedPrice = basePrice * 0.85;
 
             document.getElementById('priceRange').textContent = `€${discountedPrice.toFixed(2)}`;
             document.getElementById('quoteDetails').textContent = currentLang === 'es' 
-                ? `Ruta: ${origin} → ${destination} (Incluye 15% de descuento aplicado)`
-                : `Route: ${origin} → ${destination} (Includes 15% discount applied)`;
+                ? `Ruta: ${origin} → ${destination} (15% de descuento aplicado)`
+                : `Route: ${origin} → ${destination} (15% discount applied)`;
             
             document.getElementById('quoteResult').classList.remove('hidden');
         }
@@ -676,9 +684,9 @@
             let text = "";
             
             if (currentLang === 'es') {
-                text = `Hola, quiero solicitar una cotización de envío desde ${origin || 'Origen'} hasta ${destination || 'Destino'} (con el 15% de descuento).`;
+                text = `Hola, quiero solicitar una cotización de envío desde ${origin || 'Origen'} hasta ${destination || 'Destino'} (aprovechando el 15% de descuento).`;
             } else {
-                text = `Hello, I would like to request a shipping quote from ${origin || 'Origin'} to ${destination || 'Destination'} (with the 15% discount).`;
+                text = `Hello, I would like to request a shipping quote from ${origin || 'Origin'} to ${destination || 'Destination'} (taking advantage of the 15% discount).`;
             }
             
             window.open(`https://wa.me/34691321485?text=${encodeURIComponent(text)}`, '_blank');
