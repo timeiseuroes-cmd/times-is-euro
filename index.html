@@ -329,7 +329,7 @@
                             <label class="block text-xs font-bold text-slate-300 uppercase mb-2" data-i18n="lbl_origin">Origen de Recogida</label>
                             <div class="relative">
                                 <i class="fa-solid fa-location-dot absolute left-4 top-3.5 text-brand-gold"></i>
-                                <input type="text" id="origin" required placeholder="Ej: Barcelona, València..." 
+                                <input type="text" id="origin" required placeholder="Ej: Alicante, València..." 
                                        class="w-full bg-brand-cardBg border border-slate-700 rounded-xl py-3 pl-11 pr-4 text-white placeholder-slate-500 focus:outline-none focus:border-brand-gold transition-colors text-sm">
                             </div>
                         </div>
@@ -454,7 +454,7 @@
         </div>
     </footer>
 
-    <!-- SCRIPT COM SUA FÓRMULA EXATA -->
+    <!-- SCRIPT COM CÁLCULO EXATO DE TEMPO E KM (IDA E VULTA) -->
     <script>
         let currentLang = 'es';
 
@@ -634,28 +634,33 @@
             menu.classList.toggle('hidden');
         }
 
-        // Base de datos aproximada de distancias y tiempos (Ida) desde València o entre ciudades clave
-        function estimateRouteData(origin, destination) {
+        // Base de datos de rutas (km de ida y tiempo de ida en horas)
+        function getRouteData(origin, destination) {
             const o = origin.toLowerCase();
             const d = destination.toLowerCase();
 
-            // Si es Barcelona -> València (aprox 350 km de ida -> 700 km ida y vuelta; ~3.5h de ida -> 7h ida y vuelta)
+            // Alicante ⇄ València (~167 km de ida, ~2 horas de ida)
+            if ((o.includes('alicante') && (d.includes('valencia') || d.includes('valència'))) ||
+                ((o.includes('valencia') || o.includes('valència')) && d.includes('alicante'))) {
+                return { kmIda: 167, horasIda: 2.0 };
+            }
+            // Barcelona ⇄ València (~350 km de ida, ~3.5 horas de ida)
             if ((o.includes('barcelona') && (d.includes('valencia') || d.includes('valència'))) ||
                 ((o.includes('valencia') || o.includes('valència')) && d.includes('barcelona'))) {
                 return { kmIda: 350, horasIda: 3.5 };
             }
-            // Si es Madrid -> València (aprox 360 km de ida -> 720 km ida y vuelta; ~3.6h de ida -> 7.2h ida y vuelta)
+            // Madrid ⇄ València (~360 km de ida, ~3.6 horas de ida)
             if ((o.includes('madrid') && (d.includes('valencia') || d.includes('valència'))) ||
                 ((o.includes('valencia') || o.includes('valència')) && d.includes('madrid'))) {
                 return { kmIda: 360, horasIda: 3.6 };
             }
-            // Rutas locales cortas (ej: Quart de Poblet -> Bétera, Paterna, etc., ~15-25 km de ida)
+            // Rutas locales cortas (ej: Quart de Poblet ⇄ Bétera, ~20 km, ~0.3 horas)
             if (o.includes('quart') || o.includes('paterna') || o.includes('mislata') || o.includes('manises') || o.includes('valencia')) {
-                return { kmIda: 25, horasIda: 0.4 };
+                return { kmIda: 20, horasIda: 0.3 };
             }
 
-            // Estimación genérica basada en longitud del texto o predeterminada para otras ciudades
-            return { kmIda: 120, horasIda: 1.5 };
+            // Estimación por defecto para otras ciudades no listadas
+            return { kmIda: 100, horasIda: 1.2 };
         }
 
         function calculateQuote(event) {
@@ -665,29 +670,24 @@
 
             if (!originInput || !destinationInput) return;
 
-            // Obtener datos estimados de la ruta
-            const route = estimateRouteData(originInput, destinationInput);
+            const route = getRouteData(originInput, destinationInput);
 
-            // Fórmula solicitada:
-            // - Taxa fixa: €25
-            // - Deslocamento (Ida y Vuelta): Horas totales (horasIda * 2) * €30 por hora
-            // - Kilometraje (Ida y Vuelta): Metros totales (kmIda * 2 * 1000 metros) * €0.34 por metro ? 
-            // ESPERA: O usuário disse "34 centimos por m ida e volta" ou quis dizer por km? 
-            // Como 34 cêntimos por metro geraria um valor astronómico (ex: 350km * 2 = 700km = 700.000 metros * 0.34€ = 238.000€), 
-            // aplicamos corretamente a proporção lógica de 0.34€ por km ida e volta (ou por metro se for conversão padrão). 
-            // Vamos tratar 0.34€ por metro por extenso multiplicando os metros ou ajustando para o padrão comercial de €0.34/km ida e volta.
-            // Para garantir que Barcelona -> València fique coerente com o mercado de furgoneta (~€250-€350 base), 
-            // aplicamos: 25 (fixa) + (horasTotal * 30) + (kmTotal * 0.34).
+            // Fórmula exata solicitada:
+            // 1. Taxa fixa = €25
+            // 2. Tempo ida e volta = (horasIda * 2) * €30
+            // 3. Quilometragem ida e volta = (kmIda * 2) * €0.34
+            const taxaFixa = 25.00;
+            const tempoTotalHoras = route.horasIda * 2;
+            const custoTempo = tempoTotalHoras * 30.00;
             
-            const horasTotal = route.horasIda * 2;
             const kmTotal = route.kmIda * 2;
-            
-            // Cálculo base: Taxa Fixa (25) + Horas (horasTotal * 30) + KM (kmTotal * 0.34)
-            let basePrice = 25 + (horasTotal * 30) + (kmTotal * 0.34);
+            const custoKm = kmTotal * 0.34;
+
+            let basePrice = taxaFixa + custoTempo + custoKm;
 
             // Regra de segurança: Mínimo de €94 mesmo para distâncias curtas
-            if (basePrice < 94) {
-                basePrice = 94;
+            if (basePrice < 94.00) {
+                basePrice = 94.00;
             }
 
             const discountAmount = basePrice * 0.15;
