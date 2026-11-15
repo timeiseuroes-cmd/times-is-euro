@@ -358,8 +358,14 @@
 
                 <!-- Result Box -->
                 <div id="quoteResult" class="hidden mt-8 p-6 bg-brand-cardBg/90 rounded-2xl border border-brand-gold text-center space-y-3">
-                    <h4 class="text-xs font-bold text-brand-gold uppercase tracking-widest" data-i18n="res_title">Estimación de Servicio (¡Incluye 15% de descuento!)</h4>
-                    <p class="text-3xl font-black text-white" id="priceRange">€0.00</p>
+                    <div class="inline-block bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider" id="discountBadge">
+                        ¡Ahorras €25.50 (15% DTO)!
+                    </div>
+                    <h4 class="text-xs font-bold text-brand-gold uppercase tracking-widest" data-i18n="res_title">Estimación de Servicio</h4>
+                    <div class="flex items-center justify-center space-x-3">
+                        <span class="text-lg text-slate-400 line-through font-semibold" id="originalPrice">€170.00</span>
+                        <p class="text-4xl font-black text-white" id="priceRange">€144.50</p>
+                    </div>
                     <p class="text-xs text-slate-300" id="quoteDetails"></p>
                     <p class="text-[11px] text-slate-400 italic" data-i18n="res_disclaimer">*El precio no incluye IVA. Tasas adicionales (como peajes o tiempo de espera excedente) pueden cobrarse a parte.</p>
                 </div>
@@ -505,7 +511,7 @@
                 lbl_destination: "Destino de Entrega",
                 btn_calc: "Calcular Estimado",
                 btn_direct_wa: "Enviar Consulta a WhatsApp",
-                res_title: "Estimación de Servicio (¡Incluye 15% de descuento!)",
+                res_title: "Estimación de Servicio (Sin IVA)",
                 res_disclaimer: "*El precio no incluye IVA. Tasas adicionales (como peajes o tiempo de espera excedente) pueden cobrarse a parte.",
                 why_sub: "Ventajas de Elegirnos",
                 why_title: "Rapidez, Compromiso y Atención Bilingüe",
@@ -577,7 +583,7 @@
                 lbl_destination: "Delivery Destination",
                 btn_calc: "Calculate Estimate",
                 btn_direct_wa: "Send Inquiry to WhatsApp",
-                res_title: "Service Estimate (Includes 15% discount!)",
+                res_title: "Service Estimate (Excl. VAT)",
                 res_disclaimer: "*Price does not include VAT. Additional fees (such as tolls or excess waiting time) may be charged separately.",
                 why_sub: "Why Choose Us",
                 why_title: "Speed, Commitment, and Bilingual Support",
@@ -630,25 +636,35 @@
 
         function calculateQuote(event) {
             event.preventDefault();
-            const origin = document.getElementById('origin').value.toLowerCase();
-            const destination = document.getElementById('destination').value.toLowerCase();
+            const originInput = document.getElementById('origin').value;
+            const destinationInput = document.getElementById('destination').value;
+            const origin = originInput.toLowerCase();
+            const destination = destinationInput.toLowerCase();
 
-            let finalPrice = 0;
+            let basePrice = 0;
 
-            // Verificação específica para Quart de Poblet -> Bétera (ou rota equivalente)
-            if ((origin.includes('quart') && destination.includes('betera')) || 
-                (origin.includes('bétera') && destination.includes('quart'))) {
-                finalPrice = 145.00;
+            // Ruta Quart de Poblet -> Bétera: 170.00€ sin descuento -> 144.50€ con 15% DTO (ahorro de 25.50€)
+            if ((origin.includes('quart') && (destination.includes('betera') || destination.includes('bétera'))) || 
+                ((origin.includes('betera') || origin.includes('bétera')) && destination.includes('quart'))) {
+                basePrice = 170.00;
             } else {
-                // Fórmula de cálculo padrão original com 15% de desconto aplicado
-                let baseStandardPrice = (Math.floor(Math.random() * 80) + 90);
-                finalPrice = baseStandardPrice * 0.85;
+                // Cálculo padrão para outras rotas
+                basePrice = (Math.floor(Math.random() * 80) + 120);
             }
 
+            const discountAmount = basePrice * 0.15;
+            const finalPrice = basePrice - discountAmount;
+
+            document.getElementById('originalPrice').textContent = `€${basePrice.toFixed(2)}`;
             document.getElementById('priceRange').textContent = `€${finalPrice.toFixed(2)}`;
+            
+            document.getElementById('discountBadge').textContent = currentLang === 'es'
+                ? `¡Recibes €${discountAmount.toFixed(2)} de descuento (15% DTO)!`
+                : `You get €${discountAmount.toFixed(2)} discount (15% OFF)!`;
+
             document.getElementById('quoteDetails').textContent = currentLang === 'es' 
-                ? `Ruta: ${document.getElementById('origin').value} → ${document.getElementById('destination').value} (15% de descuento aplicado)`
-                : `Route: ${document.getElementById('origin').value} → ${document.getElementById('destination').value} (15% discount applied)`;
+                ? `Ruta: ${originInput} → ${destinationInput} | Precio base: €${basePrice.toFixed(2)} - Descuento 15%: €${discountAmount.toFixed(2)}`
+                : `Route: ${originInput} → ${destinationInput} | Base price: €${basePrice.toFixed(2)} - 15% Discount: €${discountAmount.toFixed(2)}`;
             
             document.getElementById('quoteResult').classList.remove('hidden');
         }
