@@ -143,7 +143,7 @@
                 <!-- Left Text Content -->
                 <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
                     
-                    <!-- ILUSTRAÇÃO / ETIQUETA PROMOCIONAL DE 15% NA CARA DO SITE -->
+                    <!-- ETIQUETA PROMOCIONAL DE 15% NA CARA DO SITE -->
                     <div class="inline-flex items-center space-x-4 discount-badge-hero text-brand-navy px-6 py-3 rounded-2xl font-black shadow-xl transform hover:scale-105 transition-transform duration-300 border-2 border-white/40">
                         <div class="bg-brand-navy text-brand-gold w-10 h-10 rounded-xl flex items-center justify-center text-xl shadow-inner">
                             <i class="fa-solid fa-percent"></i>
@@ -206,7 +206,7 @@
                     </div>
                 </div>
 
-                <!-- Right Graphic: Ford Transit with Wings Representation -->
+                <!-- Right Graphic -->
                 <div class="lg:col-span-5 flex justify-center relative">
                     <div class="relative w-full max-w-md lg:max-w-none">
                         <div class="wing-anim relative bg-gradient-to-b from-brand-cardBg to-brand-navy p-8 rounded-3xl border border-brand-gold/30 shadow-2xl glow-gold text-center overflow-hidden">
@@ -454,7 +454,7 @@
         </div>
     </footer>
 
-    <!-- SCRIPT DE TRADUCCIÓN Y CÁLCULO -->
+    <!-- SCRIPT CORREGIDO (SIN ALEATORIEDAD) -->
     <script>
         let currentLang = 'es';
 
@@ -636,20 +636,19 @@
 
         function calculateQuote(event) {
             event.preventDefault();
-            const originInput = document.getElementById('origin').value;
-            const destinationInput = document.getElementById('destination').value;
+            const originInput = document.getElementById('origin').value.trim();
+            const destinationInput = document.getElementById('destination').value.trim();
             const origin = originInput.toLowerCase();
             const destination = destinationInput.toLowerCase();
 
-            let basePrice = 0;
+            let basePrice = 150.00; // Valor padrão fixo para outras rotas (removido o Math.random aleatório)
 
-            // Ruta Quart de Poblet -> Bétera: 170.00€ sin descuento -> 144.50€ con 15% DTO (ahorro de 25.50€)
+            // Rota específica Quart de Poblet -> Bétera (ou vice-versa): exatos €170.00 base -> €144.50 com 15% DTO
             if ((origin.includes('quart') && (destination.includes('betera') || destination.includes('bétera'))) || 
                 ((origin.includes('betera') || origin.includes('bétera')) && destination.includes('quart'))) {
                 basePrice = 170.00;
-            } else {
-                // Cálculo padrão para outras rotas
-                basePrice = (Math.floor(Math.random() * 80) + 120);
+            } else if (origin.includes('valencia') || origin.includes('valència')) {
+                basePrice = 120.00; // Exemplo de preço fixo para outras rotas locais partindo de València
             }
 
             const discountAmount = basePrice * 0.15;
