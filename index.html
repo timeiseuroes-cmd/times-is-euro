@@ -58,6 +58,10 @@
             0% { transform: translateY(0px) rotate(0deg); }
             100% { transform: translateY(-12px) rotate(1.5deg); }
         }
+        .discount-badge-hero {
+            background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+            box-shadow: 0 10px 25px -5px rgba(212, 175, 55, 0.5);
+        }
     </style>
 </head>
 <body class="bg-brand-navy text-slate-100 font-body selection:bg-brand-gold selection:text-brand-navy overflow-x-hidden">
@@ -88,16 +92,11 @@
                     <a href="#contacto" data-i18n="nav_contact" class="hover:text-brand-gold transition-colors">Contacto</a>
                 </nav>
 
-                <!-- RIGHT CONTROLS: LANG TOGGLE (ES / EN) & WHATSAPP -->
+                <!-- RIGHT CONTROLS -->
                 <div class="hidden md:flex items-center space-x-4">
-                    <!-- Language Selector Switcher -->
                     <div class="flex items-center bg-brand-cardBg border border-slate-700 rounded-full p-1 text-xs">
-                        <button onclick="setLanguage('es')" id="btn-es" class="px-3 py-1.5 rounded-full font-bold transition-all bg-brand-gold text-brand-navy shadow-sm">
-                            🇪🇸 ES
-                        </button>
-                        <button onclick="setLanguage('en')" id="btn-en" class="px-3 py-1.5 rounded-full font-bold transition-all text-slate-300 hover:text-white">
-                            🇬🇧 EN
-                        </button>
+                        <button onclick="setLanguage('es')" id="btn-es" class="px-3 py-1.5 rounded-full font-bold transition-all bg-brand-gold text-brand-navy shadow-sm">🇪🇸 ES</button>
+                        <button onclick="setLanguage('en')" id="btn-en" class="px-3 py-1.5 rounded-full font-bold transition-all text-slate-300 hover:text-white">🇬🇧 EN</button>
                     </div>
 
                     <a href="https://wa.me/34691321485?text=Hello,%20I%20would%20like%20to%20request%20information%20about%20a%20shipment." target="_blank" rel="noopener noreferrer" 
@@ -143,10 +142,16 @@
                 
                 <!-- Left Text Content -->
                 <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
-                    <!-- ETIQUETA / AVISO PROMOCIONAL DE 15% DE DESCUENTO NA CARA DO SITE -->
-                    <div class="inline-flex items-center space-x-3 bg-brand-gold text-brand-navy px-5 py-2.5 rounded-full text-xs sm:text-sm font-black shadow-lg glow-gold animate-bounce">
-                        <i class="fa-solid fa-tag text-base"></i>
-                        <span data-i18n="promo_banner">¡PROMOCIÓN ESPECIAL: 15% DE DESCUENTO APLICADO!</span>
+                    
+                    <!-- ILUSTRAÇÃO / ETIQUETA PROMOCIONAL DE 15% NA CARA DO SITE -->
+                    <div class="inline-flex items-center space-x-4 discount-badge-hero text-brand-navy px-6 py-3 rounded-2xl font-black shadow-xl transform hover:scale-105 transition-transform duration-300 border-2 border-white/40">
+                        <div class="bg-brand-navy text-brand-gold w-10 h-10 rounded-xl flex items-center justify-center text-xl shadow-inner">
+                            <i class="fa-solid fa-percent"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-[10px] tracking-wider uppercase font-extrabold opacity-80" data-i18n="promo_sub">OFERTA ESPECIAL VIGENTE</div>
+                            <div class="text-base sm:text-lg font-black tracking-wide" data-i18n="promo_title">15% DE DESCUENTO EN TU TRANSPORTE</div>
+                        </div>
                     </div>
 
                     <div class="inline-flex items-center space-x-2 bg-brand-lightBlue/20 border border-brand-lightBlue/40 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold text-brand-gold ml-2">
@@ -204,29 +209,20 @@
                 <!-- Right Graphic: Ford Transit with Wings Representation -->
                 <div class="lg:col-span-5 flex justify-center relative">
                     <div class="relative w-full max-w-md lg:max-w-none">
-                        <!-- Wings Illustration Backdrop Card -->
                         <div class="wing-anim relative bg-gradient-to-b from-brand-cardBg to-brand-navy p-8 rounded-3xl border border-brand-gold/30 shadow-2xl glow-gold text-center overflow-hidden">
-                            
-                            <!-- Wings SVG / Icon visual backdrop -->
                             <div class="absolute inset-0 opacity-10 flex items-center justify-center pointer-events-none">
                                 <i class="fa-solid fa-wings text-white text-[250px]"></i>
                             </div>
 
                             <div class="relative z-10 space-y-6">
-                                <!-- Vehicle Graphic Header -->
                                 <div class="relative py-4 flex justify-center items-center">
-                                    <!-- Left Wing Icon -->
                                     <div class="text-brand-gold text-5xl sm:text-7xl opacity-90 transform -scale-x-100 mr-2 drop-shadow">
                                         <i class="fa-solid fa-feather-pointed"></i>
                                     </div>
-                                    
-                                    <!-- Ford Transit Box Stylized -->
                                     <div class="bg-gradient-to-r from-blue-700 to-brand-lightBlue p-6 rounded-2xl shadow-2xl border-2 border-brand-gold/80 transform hover:scale-105 transition-transform duration-300">
                                         <i class="fa-solid fa-van-shuttle text-white text-6xl sm:text-7xl"></i>
                                         <div class="mt-2 text-xs font-black text-brand-gold tracking-widest uppercase">FORD TRANSIT EXPRESS</div>
                                     </div>
-
-                                    <!-- Right Wing Icon -->
                                     <div class="text-brand-gold text-5xl sm:text-7xl opacity-90 ml-2 drop-shadow">
                                         <i class="fa-solid fa-feather-pointed"></i>
                                     </div>
@@ -238,23 +234,13 @@
                                 </div>
 
                                 <div class="flex justify-around items-center text-xs text-slate-300 border-t border-slate-800 pt-4">
-                                    <div class="flex items-center space-x-1">
-                                        <i class="fa-solid fa-circle-check text-brand-gold"></i>
-                                        <span data-i18n="badge_fleet">Flota Propia</span>
-                                    </div>
-                                    <div class="flex items-center space-x-1">
-                                        <i class="fa-solid fa-circle-check text-brand-gold"></i>
-                                        <span data-i18n="badge_express">Express 24h</span>
-                                    </div>
-                                    <div class="flex items-center space-x-1">
-                                        <i class="fa-solid fa-circle-check text-brand-gold"></i>
-                                        <span data-i18n="badge_tracking">Seguimiento</span>
-                                    </div>
+                                    <div class="flex items-center space-x-1"><i class="fa-solid fa-circle-check text-brand-gold"></i><span data-i18n="badge_fleet">Flota Propia</span></div>
+                                    <div class="flex items-center space-x-1"><i class="fa-solid fa-circle-check text-brand-gold"></i><span data-i18n="badge_express">Express 24h</span></div>
+                                    <div class="flex items-center space-x-1"><i class="fa-solid fa-circle-check text-brand-gold"></i><span data-i18n="badge_tracking">Seguimiento</span></div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Floating Badges -->
                         <div class="absolute -bottom-6 -left-6 bg-brand-gold text-brand-navy p-3 rounded-2xl font-bold shadow-xl flex items-center space-x-2 text-xs sm:text-sm border-2 border-white">
                             <i class="fa-solid fa-phone-volume text-lg"></i>
                             <span data-i18n="badge_support">Atención ES / EN</span>
@@ -285,15 +271,12 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Service 1 -->
                 <div class="bg-brand-cardBg p-8 rounded-3xl border border-slate-700/80 hover:border-brand-gold transition-all duration-300 hover:-translate-y-2 group shadow-lg">
                     <div class="w-16 h-16 rounded-2xl gold-bg-gradient flex items-center justify-center text-brand-navy text-3xl mb-6 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-bolt"></i>
                     </div>
                     <h3 class="text-2xl font-bold text-white mb-4" data-i18n="s1_title">Envíos Exprés Directos</h3>
-                    <p class="text-slate-300 text-sm leading-relaxed mb-6" data-i18n="s1_desc">
-                        Transporte directo de puerta a puerta sin intermediarios. Su paquete viaja de inmediato a bordo de nuestras Ford Transit acondicionadas.
-                    </p>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6" data-i18n="s1_desc">Transporte directo de puerta a puerta sin intermediarios. Su paquete viaja de inmediato a bordo de nuestras Ford Transit acondicionadas.</p>
                     <ul class="space-y-2 text-xs text-slate-300">
                         <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-brand-gold"></i><span data-i18n="s1_i1">Entregas el mismo día / 24h</span></li>
                         <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-brand-gold"></i><span data-i18n="s1_i2">Carga prioritaria urgente</span></li>
@@ -301,15 +284,12 @@
                     </ul>
                 </div>
 
-                <!-- Service 2 -->
                 <div class="bg-brand-cardBg p-8 rounded-3xl border border-slate-700/80 hover:border-brand-gold transition-all duration-300 hover:-translate-y-2 group shadow-lg">
                     <div class="w-16 h-16 rounded-2xl gold-bg-gradient flex items-center justify-center text-brand-navy text-3xl mb-6 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-boxes-packing"></i>
                     </div>
                     <h3 class="text-2xl font-bold text-white mb-4" data-i18n="s2_title">Transporte de Paquetería</h3>
-                    <p class="text-slate-300 text-sm leading-relaxed mb-6" data-i18n="s2_desc">
-                        Gestión eficiente de mercancías, paquetería comercial, equipaje y carga ligera con cobertura flexible adaptada a sus horarios.
-                    </p>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6" data-i18n="s2_desc">Gestión eficiente de mercancías, paquetería comercial, equipaje y carga ligera con cobertura flexible adaptada a sus horarios.</p>
                     <ul class="space-y-2 text-xs text-slate-300">
                         <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-brand-gold"></i><span data-i18n="s2_i1">Cuidado especial de frágiles</span></li>
                         <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-brand-gold"></i><span data-i18n="s2_i2">Carga y descarga asistida</span></li>
@@ -317,15 +297,12 @@
                     </ul>
                 </div>
 
-                <!-- Service 3 -->
                 <div class="bg-brand-cardBg p-8 rounded-3xl border border-slate-700/80 hover:border-brand-gold transition-all duration-300 hover:-translate-y-2 group shadow-lg">
                     <div class="w-16 h-16 rounded-2xl gold-bg-gradient flex items-center justify-center text-brand-navy text-3xl mb-6 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-route"></i>
                     </div>
                     <h3 class="text-2xl font-bold text-white mb-4" data-i18n="s3_title">Rutas Personalizadas</h3>
-                    <p class="text-slate-300 text-sm leading-relaxed mb-6" data-i18n="s3_desc">
-                        Soluciones logísticas a medida para empresas y particulares. Programación de rutas recurrentes y transporte urgente interurbano.
-                    </p>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6" data-i18n="s3_desc">Soluciones logísticas a medida para empresas y particulares. Programación de rutas recurrentes y transporte urgente interurbano.</p>
                     <ul class="space-y-2 text-xs text-slate-300">
                         <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-brand-gold"></i><span data-i18n="s3_i1">Atención bilingüe ES / EN</span></li>
                         <li class="flex items-center space-x-2"><i class="fa-solid fa-check text-brand-gold"></i><span data-i18n="s3_i2">Tarifas transparentes sin sorpresas</span></li>
@@ -348,22 +325,20 @@
 
                 <form id="quoteForm" onsubmit="calculateQuote(event)" class="space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Origin -->
                         <div>
                             <label class="block text-xs font-bold text-slate-300 uppercase mb-2" data-i18n="lbl_origin">Origen de Recogida</label>
                             <div class="relative">
                                 <i class="fa-solid fa-location-dot absolute left-4 top-3.5 text-brand-gold"></i>
-                                <input type="text" id="origin" required placeholder="Ej: Valencia, Benidorm..." 
+                                <input type="text" id="origin" required placeholder="Ej: Quart de Poblet, València..." 
                                        class="w-full bg-brand-cardBg border border-slate-700 rounded-xl py-3 pl-11 pr-4 text-white placeholder-slate-500 focus:outline-none focus:border-brand-gold transition-colors text-sm">
                             </div>
                         </div>
 
-                        <!-- Destination -->
                         <div>
                             <label class="block text-xs font-bold text-slate-300 uppercase mb-2" data-i18n="lbl_destination">Destino de Entrega</label>
                             <div class="relative">
                                 <i class="fa-solid fa-flag-checkered absolute left-4 top-3.5 text-brand-gold"></i>
-                                <input type="text" id="destination" required placeholder="Ej: Madrid, Benidorm, Castellón..." 
+                                <input type="text" id="destination" required placeholder="Ej: Bétera, València..." 
                                        class="w-full bg-brand-cardBg border border-slate-700 rounded-xl py-3 pl-11 pr-4 text-white placeholder-slate-500 focus:outline-none focus:border-brand-gold transition-colors text-sm">
                             </div>
                         </div>
@@ -392,24 +367,18 @@
         </div>
     </section>
 
-    <!-- WHY CHOOSE US / ADVANTAGES -->
+    <!-- WHY CHOOSE US -->
     <section id="nosotros" class="py-24 bg-brand-navy">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div class="space-y-6">
                     <span class="text-xs font-bold text-brand-gold tracking-widest uppercase" data-i18n="why_sub">Ventajas de Elegirnos</span>
-                    <h2 class="text-3xl sm:text-5xl font-black text-white leading-tight" data-i18n="why_title">
-                        Rapidez, Compromiso y Atención Bilingüe
-                    </h2>
-                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed" data-i18n="why_desc">
-                        En TIME IS EURO entendemos que cada minuto cuenta. Nuestra misión es brindarle un servicio directo, transparente y sin complicaciones.
-                    </p>
+                    <h2 class="text-3xl sm:text-5xl font-black text-white leading-tight" data-i18n="why_title">Rapidez, Compromiso y Atención Bilingüe</h2>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed" data-i18n="why_desc">En TIME IS EURO entendemos que cada minuto cuenta. Nuestra misión es brindarle un servicio directo, transparente y sin complicaciones.</p>
 
                     <div class="space-y-4 pt-2">
                         <div class="flex items-start space-x-4">
-                            <div class="w-10 h-10 rounded-xl gold-bg-gradient flex items-center justify-center text-brand-navy font-bold shrink-0 mt-1">
-                                <i class="fa-solid fa-bolt"></i>
-                            </div>
+                            <div class="w-10 h-10 rounded-xl gold-bg-gradient flex items-center justify-center text-brand-navy font-bold shrink-0 mt-1"><i class="fa-solid fa-bolt"></i></div>
                             <div>
                                 <h4 class="text-lg font-bold text-white" data-i18n="adv1_title">Fuerza Ford Transit</h4>
                                 <p class="text-slate-300 text-xs sm:text-sm" data-i18n="adv1_desc">Vehículos modernos y mantenimiento óptimo para garantizar que su carga viaje rápida y segura.</p>
@@ -417,9 +386,7 @@
                         </div>
 
                         <div class="flex items-start space-x-4">
-                            <div class="w-10 h-10 rounded-xl gold-bg-gradient flex items-center justify-center text-brand-navy font-bold shrink-0 mt-1">
-                                <i class="fa-solid fa-comments"></i>
-                            </div>
+                            <div class="w-10 h-10 rounded-xl gold-bg-gradient flex items-center justify-center text-brand-navy font-bold shrink-0 mt-1"><i class="fa-solid fa-comments"></i></div>
                             <div>
                                 <h4 class="text-lg font-bold text-white" data-i18n="adv2_title">Atención en Español e Inglés</h4>
                                 <p class="text-slate-300 text-xs sm:text-sm" data-i18n="adv2_desc">Comunicación fluida para clientes nacionales e internacionales sin barreras de idioma.</p>
@@ -427,9 +394,7 @@
                         </div>
 
                         <div class="flex items-start space-x-4">
-                            <div class="w-10 h-10 rounded-xl gold-bg-gradient flex items-center justify-center text-brand-navy font-bold shrink-0 mt-1">
-                                <i class="fa-solid fa-handshake"></i>
-                            </div>
+                            <div class="w-10 h-10 rounded-xl gold-bg-gradient flex items-center justify-center text-brand-navy font-bold shrink-0 mt-1"><i class="fa-solid fa-handshake"></i></div>
                             <div>
                                 <h4 class="text-lg font-bold text-white" data-i18n="adv3_title">Mandó, Llegó</h4>
                                 <p class="text-slate-300 text-xs sm:text-sm" data-i18n="adv3_desc">Cumplimiento estricto de los tiempos de entrega acordados.</p>
@@ -489,7 +454,8 @@
 
         const translations = {
             es: {
-                promo_banner: "¡PROMOCIÓN ESPECIAL: 15% DE DESCUENTO APLICADO!",
+                promo_sub: "OFERTA ESPECIAL VIGENTE",
+                promo_title: "15% DE DESCUENTO EN TU TRANSPORTE",
                 header_sub: "Transports & Express Courier",
                 nav_home: "Inicio",
                 nav_services: "Servicios",
@@ -560,7 +526,8 @@
                 footer_rights: "Todos los derechos reservados."
             },
             en: {
-                promo_banner: "SPECIAL PROMOTION: 15% DISCOUNT APPLIED!",
+                promo_sub: "CURRENT SPECIAL OFFER",
+                promo_title: "15% DISCOUNT ON YOUR TRANSPORT",
                 header_sub: "Transports & Express Courier",
                 nav_home: "Home",
                 nav_services: "Services",
@@ -663,17 +630,25 @@
 
         function calculateQuote(event) {
             event.preventDefault();
-            const origin = document.getElementById('origin').value;
-            const destination = document.getElementById('destination').value;
+            const origin = document.getElementById('origin').value.toLowerCase();
+            const destination = document.getElementById('destination').value.toLowerCase();
 
-            // Cálculo original (duplicado del trayecto base) aplicando el 15% de descuento
-            let basePrice = (Math.floor(Math.random() * 80) + 40) * 2; 
-            let discountedPrice = basePrice * 0.85;
+            let finalPrice = 0;
 
-            document.getElementById('priceRange').textContent = `€${discountedPrice.toFixed(2)}`;
+            // Verificação específica para Quart de Poblet -> Bétera (ou rota equivalente)
+            if ((origin.includes('quart') && destination.includes('betera')) || 
+                (origin.includes('bétera') && destination.includes('quart'))) {
+                finalPrice = 145.00;
+            } else {
+                // Fórmula de cálculo padrão original com 15% de desconto aplicado
+                let baseStandardPrice = (Math.floor(Math.random() * 80) + 90);
+                finalPrice = baseStandardPrice * 0.85;
+            }
+
+            document.getElementById('priceRange').textContent = `€${finalPrice.toFixed(2)}`;
             document.getElementById('quoteDetails').textContent = currentLang === 'es' 
-                ? `Ruta: ${origin} → ${destination} (15% de descuento aplicado)`
-                : `Route: ${origin} → ${destination} (15% discount applied)`;
+                ? `Ruta: ${document.getElementById('origin').value} → ${document.getElementById('destination').value} (15% de descuento aplicado)`
+                : `Route: ${document.getElementById('origin').value} → ${document.getElementById('destination').value} (15% discount applied)`;
             
             document.getElementById('quoteResult').classList.remove('hidden');
         }
